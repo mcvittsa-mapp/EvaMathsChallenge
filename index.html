@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Maths Challenge — Daily Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff6ec;
+    --bg-deep: #fde6cd;
+    --paper: #fffaf3;
+    --ink: #2b1d3a;
+    --ink-soft: #5a4a6a;
+    --coral: #ff6b6b;
+    --coral-deep: #e94f4f;
+    --gold: #ffb830;
+    --teal: #2ec4b6;
+    --teal-deep: #20a89c;
+    --rose: #fcd5ce;
+    --shadow: rgba(43, 29, 58, 0.12);
+    --shadow-strong: rgba(43, 29, 58, 0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background:
+      radial-gradient(1200px 600px at 100% -10%, var(--rose) 0%, transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, #c8e7e3 0%, transparent 55%),
+      var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* Decorative floating shapes */
+  .deco {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+  .deco-1 { top: 8%; right: 5%; }
+  .deco-2 { bottom: 10%; left: 4%; }
+  .deco-3 { top: 50%; right: 8%; }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .logo-mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--coral) 0%, var(--gold) 100%);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.35);
+    transform: rotate(-4deg);
+  }
+
+  .logo-mark svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+  }
+
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(28px, 5vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  .subtitle em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--coral-deep);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--paper);
+    border-radius: 28px;
+    padding: 32px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 20px 50px -20px var(--shadow),
+      0 4px 12px -2px var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  /* Welcome screen */
+  .welcome-card { text-align: center; }
+
+  .welcome-card h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .welcome-card .ribbon {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .welcome-card p {
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: inherit;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    box-shadow: 0 6px 0 rgba(43, 29, 58, 0.3), 0 8px 20px var(--shadow-strong);
+    text-decoration: none;
+  }
+
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 rgba(43, 29, 58, 0.3), 0 12px 24px var(--shadow-strong); }
+  .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(43, 29, 58, 0.3), 0 4px 10px var(--shadow-strong); }
+
+  .btn-primary {
+    background: var(--coral);
+    color: white;
+    box-shadow: 0 6px 0 var(--coral-deep), 0 8px 20px rgba(233, 79, 79, 0.4);
+    font-size: 20px;
+    padding: 18px 40px;
+  }
+  .btn-primary:hover { box-shadow: 0 8px 0 var(--coral-deep), 0 12px 24px rgba(233, 79, 79, 0.45); }
+  .btn-primary:active { box-shadow: 0 2px 0 var(--coral-deep), 0 4px 10px rgba(233, 79, 79, 0.35); }
+
+  /* History */
+  .history {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 2px dashed rgba(43, 29, 58, 0.12);
+  }
+
+  .history-title {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+
+  .history-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .history-pill {
+    background: var(--bg-deep);
+    color: var(--ink);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .history-pill .score-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+  }
+
+  .history-pill.streak {
+    background: var(--gold);
+  }
+
+  .history-empty {
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* Quiz */
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 16px;
+  }
+
+  .progress-text {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .progress-text strong { color: var(--ink); font-size: 22px; }
+
+  .progress-bar {
+    flex: 1;
+    height: 12px;
+    background: var(--bg-deep);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--gold) 100%);
+    border-radius: 999px;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .score-badge {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .question {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 3vw, 24px);
+    line-height: 1.4;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .options {
+    display: grid;
+    gap: 12px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border: 2px solid rgba(43, 29, 58, 0.08);
+    border-radius: 18px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    font-family: inherit;
+    color: var(--ink);
+    width: 100%;
+  }
+
+  .option:hover:not(:disabled) {
+    border-color: var(--coral);
+    transform: translateX(4px);
+    background: white;
+  }
+
+  .option-letter {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: white;
+    display: grid;
+    place-items: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--ink);
+    border: 2px solid rgba(43, 29, 58, 0.1);
+  }
+
+  .option-text { flex: 1; }
+
+  .option.correct {
+    background: #d4f1d4;
+    border-color: #5cb85c;
+  }
+  .option.correct .option-letter {
+    background: #5cb85c;
+    color: white;
+    border-color: #5cb85c;
+  }
+
+  .option.incorrect {
+    background: #fde0e0;
+    border-color: var(--coral);
+  }
+  .option.incorrect .option-letter {
+    background: var(--coral);
+    color: white;
+    border-color: var(--coral);
+  }
+
+  .option:disabled { cursor: default; }
+  .option:disabled:hover { transform: none; }
+
+  /* Feedback */
+  .feedback {
+    margin-top: 20px;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: var(--bg-deep);
+    border-left: 4px solid var(--gold);
+    display: none;
+    animation: slideIn 0.3s ease;
+  }
+
+  .feedback.show { display: block; }
+
+  .feedback-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feedback-correct .feedback-title { color: #2d8a2d; }
+  .feedback-incorrect .feedback-title { color: var(--coral-deep); }
+
+  .feedback.feedback-correct { background: #e8f5e8; border-left-color: #5cb85c; }
+  .feedback.feedback-incorrect { background: #fde0e0; border-left-color: var(--coral); }
+
+  .feedback-body {
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .feedback-source {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .quiz-actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  /* Results */
+  .results-card {
+    text-align: center;
+  }
+
+  .results-emoji {
+    font-size: 64px;
+    margin-bottom: 12px;
+    display: inline-block;
+    animation: pop 0.5s ease;
+  }
+
+  .results-card h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .results-score {
+    font-family: 'Fraunces', serif;
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--coral);
+    line-height: 1;
+    margin: 16px 0 4px;
+  }
+
+  .results-score sub {
+    font-size: 32px;
+    color: var(--ink-soft);
+    vertical-align: baseline;
+  }
+
+  .results-message {
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 16px auto 28px;
+  }
+
+  .results-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-secondary {
+    background: white;
+    color: var(--ink);
+    box-shadow: 0 6px 0 rgba(43, 29, 58, 0.15), 0 8px 20px var(--shadow);
+  }
+
+  /* Review section */
+  .review {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px dashed rgba(43, 29, 58, 0.12);
+    text-align: left;
+  }
+
+  .review-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .review-item {
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border-left: 4px solid #5cb85c;
+  }
+
+  .review-item.wrong { border-left-color: var(--coral); }
+
+  .review-item-q {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .review-item-a { color: var(--ink-soft); }
+  .review-item-a strong { color: var(--ink); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer a {
+    color: var(--coral-deep);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  /* Animations */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.6); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .screen { animation: fadeIn 0.4s ease; }
+  .hidden { display: none !important; }
+
+  /* Mobile-friendly */
+  @media (max-width: 540px) {
+    .container { padding: 20px 16px; }
+    .card { padding: 22px; border-radius: 22px; }
+    .option { padding: 14px 16px; gap: 12px; font-size: 16px; }
+    .option-letter { width: 32px; height: 32px; font-size: 15px; }
+    .quiz-header { flex-wrap: wrap; }
+    .deco { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Decorative shapes -->
+<svg class="deco deco-1" width="80" height="80" viewBox="0 0 80 80">
+  <circle cx="40" cy="40" r="36" fill="#ffb830" opacity="0.4"/>
+  <circle cx="40" cy="40" r="20" fill="none" stroke="#2b1d3a" stroke-width="2" stroke-dasharray="4 4"/>
+</svg>
+<svg class="deco deco-2" width="100" height="100" viewBox="0 0 100 100">
+  <polygon points="50,8 92,84 8,84" fill="#2ec4b6" opacity="0.35"/>
+</svg>
+<svg class="deco deco-3" width="60" height="60" viewBox="0 0 60 60">
+  <rect x="10" y="10" width="40" height="40" rx="10" fill="#ff6b6b" opacity="0.35" transform="rotate(15 30 30)"/>
+</svg>
+
+<div class="container">
+
+  <header>
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm2 6v2h4v4h2v-4h4V9h-4V5h-2v4H7zm0 8v2h10v-2H7z"/></svg>
+      </div>
+    </div>
+    <h1>First Maths Challenge</h1>
+    <div class="subtitle">Daily practice — <em>20 questions a day</em></div>
+  </header>
+
+  <!-- WELCOME SCREEN -->
+  <div id="welcome-screen" class="screen">
+    <div class="card welcome-card">
+      <div class="ribbon">Today's Quiz</div>
+      <h2>Ready for today's challenge?</h2>
+      <p>Twenty questions, picked at random from past First Maths Challenge papers and extra practice. Take your time and try your best!</p>
+      <button class="btn btn-primary" onclick="startQuiz()">
+        Start Quiz
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+
+      <div class="history">
+        <div class="history-title">Recent Scores</div>
+        <div id="history-row" class="history-row"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz-screen" class="screen hidden">
+    <div class="card">
+      <div class="quiz-header">
+        <div class="progress-text">
+          Question <strong id="q-current">1</strong> of <strong id="q-total">20</strong>
+        </div>
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill" style="width: 5%;"></div>
+        </div>
+        <div class="score-badge"><span id="current-score">0</span>/20</div>
+      </div>
+
+      <div id="question" class="question"></div>
+
+      <div id="options" class="options"></div>
+
+      <div id="feedback" class="feedback">
+        <div id="feedback-title" class="feedback-title"></div>
+        <div id="feedback-body" class="feedback-body"></div>
+        <div id="feedback-source" class="feedback-source"></div>
+      </div>
+
+      <div class="quiz-actions">
+        <button id="next-btn" class="btn btn-primary hidden" onclick="nextQuestion()">
+          Next
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="results-screen" class="screen hidden">
+    <div class="card results-card">
+      <div id="results-emoji" class="results-emoji">🎉</div>
+      <h2 id="results-heading">Well done!</h2>
+      <div class="results-score">
+        <span id="results-score-num">0</span><sub>/20</sub>
+      </div>
+      <p id="results-message" class="results-message"></p>
+      <div class="results-actions">
+        <button class="btn btn-primary" onclick="startQuiz()">
+          Try Another Quiz
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35A8 8 0 1 0 19.73 14h-2.08a6 6 0 1 1-1.45-6.24L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
+        <button class="btn btn-secondary" onclick="goHome()">Home</button>
+      </div>
+
+      <div id="review" class="review"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Made with 🧡 for daily maths practice. Past paper questions © The Mathematical Association.
+  <br>
+  <small>Source papers: <a href="https://www.primarymathschallenge.org.uk/fmc" target="_blank" rel="noopener">primarymathschallenge.org.uk/fmc</a></small>
+</footer>
+
+<script src="questions.js"></script>
+<script>
+  // -----------------------------------------
+  // App State
+  // -----------------------------------------
+  const QUIZ_LENGTH = 20;
+  const STORAGE_KEY = 'fmc-quiz-history-v1';
+  const LETTERS = ['A', 'B', 'C', 'D', 'E'];
+
+  let state = {
+    questions: [],     // Selected 20 questions for this quiz
+    current: 0,         // Current question index
+    answers: [],        // User's selected answer index per question
+    score: 0
+  };
+
+  // -----------------------------------------
+  // Persistence
+  // -----------------------------------------
+  function loadHistory() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveScore(score) {
+    const history = loadHistory();
+    history.unshift({
+      score,
+      date: new Date().toISOString().slice(0, 10)
+    });
+    // Keep last 30 records
+    if (history.length > 30) history.length = 30;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    } catch (e) {
+      console.warn('Could not save score');
+    }
+  }
+
+  function renderHistory() {
+    const row = document.getElementById('history-row');
+    const history = loadHistory();
+    if (!history.length) {
+      row.innerHTML = '<span class="history-empty">No quizzes yet — let\'s start your first one!</span>';
+      return;
+    }
+    // Streak: how many consecutive days with quiz attempts (any score)
+    let streak = 0;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const seenDates = new Set(history.map(h => h.date));
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      if (seenDates.has(key)) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+
+    let html = '';
+    if (streak >= 2) {
+      html += `<span class="history-pill streak">🔥 ${streak}-day streak!</span>`;
+    }
+    history.slice(0, 5).forEach(h => {
+      const colour = h.score >= 16 ? '#5cb85c' : h.score >= 12 ? '#ffb830' : '#ff6b6b';
+      html += `<span class="history-pill"><span class="score-num" style="color:${colour}">${h.score}/20</span> · ${formatDate(h.date)}</span>`;
+    });
+    row.innerHTML = html;
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+    const cur = new Date(d); cur.setHours(0,0,0,0);
+    if (cur.getTime() === today.getTime()) return 'Today';
+    if (cur.getTime() === yesterday.getTime()) return 'Yesterday';
+    return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  }
+
+  // -----------------------------------------
+  // Quiz Logic
+  // -----------------------------------------
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function pickQuestions() {
+    return shuffle(QUESTIONS).slice(0, QUIZ_LENGTH);
+  }
+
+  function startQuiz() {
+    state = {
+      questions: pickQuestions(),
+      current: 0,
+      answers: [],
+      score: 0
+    };
+    showScreen('quiz-screen');
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = state.questions[state.current];
+    document.getElementById('q-current').textContent = state.current + 1;
+    document.getElementById('q-total').textContent = QUIZ_LENGTH;
+    document.getElementById('progress-fill').style.width = ((state.current) / QUIZ_LENGTH * 100) + '%';
+    document.getElementById('current-score').textContent = state.score;
+
+    document.getElementById('question').textContent = q.q;
+
+    const optsEl = document.getElementById('options');
+    optsEl.innerHTML = '';
+    q.o.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.innerHTML = `<span class="option-letter">${LETTERS[i]}</span><span class="option-text">${escapeHTML(opt)}</span>`;
+      btn.onclick = () => selectOption(i);
+      optsEl.appendChild(btn);
+    });
+
+    document.getElementById('feedback').classList.remove('show');
+    document.getElementById('next-btn').classList.add('hidden');
+  }
+
+  function selectOption(chosenIdx) {
+    const q = state.questions[state.current];
+    const opts = document.querySelectorAll('.option');
+    const isCorrect = chosenIdx === q.a;
+
+    state.answers.push(chosenIdx);
+
+    opts.forEach((el, i) => {
+      el.disabled = true;
+      if (i === q.a) el.classList.add('correct');
+      else if (i === chosenIdx) el.classList.add('incorrect');
+    });
+
+    if (isCorrect) state.score++;
+
+    document.getElementById('current-score').textContent = state.score;
+
+    // Feedback
+    const fb = document.getElementById('feedback');
+    fb.classList.add('show');
+    fb.classList.toggle('feedback-correct', isCorrect);
+    fb.classList.toggle('feedback-incorrect', !isCorrect);
+    document.getElementById('feedback-title').innerHTML = isCorrect
+      ? `<span>✓</span> Correct!`
+      : `<span>✗</span> Not quite — the answer is ${LETTERS[q.a]}: ${escapeHTML(q.o[q.a])}`;
+    document.getElementById('feedback-body').textContent = q.e;
+    document.getElementById('feedback-source').textContent = q.s;
+
+    // Show next button
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.classList.remove('hidden');
+    nextBtn.textContent = state.current === QUIZ_LENGTH - 1 ? 'See Results' : 'Next';
+    if (state.current === QUIZ_LENGTH - 1) {
+      nextBtn.innerHTML = 'See Results <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>';
+    } else {
+      nextBtn.innerHTML = 'Next <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>';
+    }
+  }
+
+  function nextQuestion() {
+    state.current++;
+    if (state.current >= QUIZ_LENGTH) {
+      finishQuiz();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function finishQuiz() {
+    saveScore(state.score);
+    showResults();
+  }
+
+  function showResults() {
+    showScreen('results-screen');
+    document.getElementById('results-score-num').textContent = state.score;
+
+    let emoji, heading, message;
+    if (state.score === 20) {
+      emoji = '🌟'; heading = 'Perfect score!';
+      message = "Incredible — every single question correct! You've absolutely smashed today's quiz. The real Challenge had better watch out!";
+    } else if (state.score >= 17) {
+      emoji = '🎉'; heading = 'Brilliant work!';
+      message = "You really know your stuff. Just a few tricky ones — go through the answers below and you'll be ready for anything.";
+    } else if (state.score >= 13) {
+      emoji = '👏'; heading = 'Well done!';
+      message = "A solid score! Have a look at the questions you missed below — those are great ones to learn from for next time.";
+    } else if (state.score >= 9) {
+      emoji = '💪'; heading = 'Good effort!';
+      message = "You're getting there. The Challenge has lots of tricky questions designed to make you think — every quiz makes you better at spotting them.";
+    } else {
+      emoji = '🌱'; heading = 'Keep practising!';
+      message = "Some of these questions are properly hard — that's the whole point. Read through the explanations below and try another quiz when you're ready.";
+    }
+
+    document.getElementById('results-emoji').textContent = emoji;
+    document.getElementById('results-heading').textContent = heading;
+    document.getElementById('results-message').textContent = message;
+
+    renderReview();
+  }
+
+  function renderReview() {
+    const review = document.getElementById('review');
+    const wrong = [];
+    state.questions.forEach((q, i) => {
+      if (state.answers[i] !== q.a) wrong.push({ q, ai: state.answers[i] });
+    });
+
+    if (wrong.length === 0) {
+      review.innerHTML = '';
+      return;
+    }
+
+    let html = `<div class="review-title">Questions to review (${wrong.length})</div>`;
+    wrong.forEach(({ q, ai }) => {
+      html += `<div class="review-item wrong">
+        <div class="review-item-q">${escapeHTML(q.q)}</div>
+        <div class="review-item-a">You picked <strong>${LETTERS[ai]}: ${escapeHTML(q.o[ai])}</strong>. Answer: <strong>${LETTERS[q.a]}: ${escapeHTML(q.o[q.a])}</strong>.</div>
+        <div class="review-item-a" style="margin-top:6px;">${escapeHTML(q.e)}</div>
+      </div>`;
+    });
+    review.innerHTML = html;
+  }
+
+  function goHome() {
+    showScreen('welcome-screen');
+    renderHistory();
+  }
+
+  // -----------------------------------------
+  // Helpers
+  // -----------------------------------------
+  function showScreen(id) {
+    ['welcome-screen','quiz-screen','results-screen'].forEach(s => {
+      document.getElementById(s).classList.toggle('hidden', s !== id);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, c =>
+      ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])
+    );
+  }
+
+  // -----------------------------------------
+  // Init
+  // -----------------------------------------
+  document.addEventListener('DOMContentLoaded', renderHistory);
+  // If DOMContentLoaded already fired (script defer-ish), call immediately
+  if (document.readyState !== 'loading') renderHistory();
+</script>
+</body>
+</html>
